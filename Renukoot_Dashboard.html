@@ -1,0 +1,1205 @@
+<html>
+
+<head>
+    <title>Renukoot Dashboard</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-----------------Font Awesome CDN---------------->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-----------------BOOTSTRAP---------------------->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+    <!-- ------------------Leaflet CDN---------------->
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!----------------------JQueru CDN-------------------->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <link href="./css/leaflet.groupedlayercontrol.css">
+    <link href="./css/leaflet-search.css" rel="stylesheet">
+    <link href="./css/L.Control.HtmlLegend.css" rel="stylesheet">
+
+   
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: rgb(171, 194, 238);
+        }
+
+        .header {
+            margin: 0;
+            padding: 0;
+            height: 75px;
+            width: 105%;
+            background-color: rgb(12, 12, 83);
+            border: solid 3px white;
+
+        }
+
+        #heading {
+            background-color: rgb(175, 175, 236);
+            color: rgb(29, 16, 59);
+            height: 30px;
+            width: 100%;
+            position: absolute;
+            border: 1px solid rgb(12, 12, 83);
+
+
+        }
+
+        #remote {
+            left: 0;
+            margin-top: 10px;
+            height: 50px;
+            width: 50px;
+            border-radius: 10px;
+
+        }
+
+        #remote1 {
+            margin-left: 17%;
+            margin-top: 6px;
+            height: 70%;
+            width: 60%;
+        }
+
+        #main {
+            transition: margin-left .5s;
+            padding: 16px;
+            padding-top: 0;
+            margin-left: 30px;
+            position: absolute;
+        }
+
+        .btn_Revenue {
+            background-color: rgb(175, 175, 236);
+            color: rgb(32, 8, 88);
+            margin-left: 5px;
+            font-size: 17px;
+            border-left: 5px solid rgb(12, 12, 83);
+            border-right: 5px solid rgb(12, 12, 83);
+            width: 95%;
+            height: 4%;
+        }
+
+        .btn_baselayer {
+            background-color: rgb(175, 175, 236);
+            color: rgb(32, 8, 88);
+
+            font-size: 17px;
+            margin-left: 5px;
+            border-left: 5px solid rgb(12, 12, 83);
+            border-right: 5px solid rgb(12, 12, 83);
+            width: 95%;
+            height: 4%;
+        }
+
+        #btn1 {
+            background-color: rgb(175, 175, 236);
+            color: rgb(32, 8, 88);
+
+            font-size: 17px;
+            margin-left: 5px;
+            border-left: 5px solid rgb(12, 12, 83);
+            border-right: 5px solid rgb(12, 12, 83);
+            width: 95%;
+            height: 8%;
+        }
+
+
+        /*   a {
+            text-decoration: none;
+            font-size: 19px;
+            color: rgb(32, 8, 88);
+        }*/
+
+        a:hover {
+            color: rgb(32, 8, 88);
+        }
+
+        .sidebar {
+            margin-top: 75px;
+            height: 100%;
+            width: 12%;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: rgb(12, 12, 83);
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 10px;
+            color: #9e9a9a;
+            border: solid 1px white;
+            border-top: none;
+        }
+
+        button {
+            border-radius: 10px;
+            margin-left: 20px;
+            width: 70%;
+            height: 4%;
+            background-color: rgb(32, 8, 88);
+            color: rgb(175, 175, 236);
+            text-align: center;
+
+
+        }
+
+        button:hover,
+        button:focus {
+            background-color: rgb(217, 215, 243);
+        }
+
+        table {
+            width: 400px;
+            height: auto;
+        }
+
+        tr {
+            width: auto;
+            height: auto;
+            overflow: hidden;
+            background-color: rgb(41, 10, 97);
+            font-size: 15px;
+            color: aliceblue;
+        }
+
+        tr:hover {
+            background-color: rgb(71, 67, 67);
+        }
+
+        .info {
+            height: 75%;
+            width: 50%;
+            padding: 6px 8px;
+            font: 14px/16px Arial, Helvetica, sans-serif;
+            background: rgb(199, 240, 166);
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 15px rgba(201, 57, 57, 0.2);
+            border-radius: 15px;
+
+        }
+
+
+
+        .info_map {
+            height: 85%;
+            width: 50%;
+            padding: 6px 8px;
+            font: 14px/16px Arial, Helvetica, sans-serif;
+            background: rgb(199, 240, 166);
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 15px rgba(201, 57, 57, 0.2);
+            border-radius: 15px;
+
+        }
+
+        #main {
+
+            padding: 16px;
+            padding-top: 0;
+            width: 87%;
+            height: 80%;
+            margin: 20px;
+        }
+
+
+        input[type=radio] {
+            accent-color: green;
+
+        }
+
+        input[type=checkbox] {
+            accent-color: green;
+        }
+
+        form {
+            margin-left: 20px;
+        }
+
+        /*  .logo {
+            height: 30%;
+            width: 80%;
+            top: -15;
+            background-color: transparent;
+            z-index: 100;
+           
+
+        }*/
+
+        .legend {
+            height: 100%;
+            width: 100%;
+            background-color: white;
+            line-height: 15px;
+            border: 1px solid rgb(49, 37, 37);
+        }
+
+
+        .legend h3 {
+
+            font-size: 13px;
+            text-align: center;
+            font-family: 'Franklin Gothic Medium', Arial, sans-serif;
+        }
+
+        .legend i {
+            font-size: large;
+            height: 12px;
+            width: 12px;
+            float: left;
+            opacity: 0.6;
+            margin-left: 10px;
+        }
+
+        b {
+            font-size: 14px;
+
+        }
+
+        .legend1 {
+            height: 100%;
+            width: 100%;
+            background-color: white;
+            line-height: 18px;
+            border: 1px solid rgb(49, 37, 37);
+        }
+
+        .legend1 h3 {
+
+            font-size: 16px;
+            text-align: center;
+            font-family: 'Franklin Gothic Medium', Arial, sans-serif;
+        }
+
+        .legend1 i {
+            font-size: large;
+            height: 15px;
+            width: 15px;
+            float: left;
+            opacity: 0.6;
+            margin-left: 10px;
+        }
+
+        span {
+            margin: 6px;
+        }
+
+        .leaflet-tooltip.no-background {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            font-weight: 200;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header" class="header">
+        <img id="remote" src="./image/logo.jpg">&nbsp; <img id="remote1" src="./image/logo1.png">
+        <!-- <b> <u> REMOTE SENSING APPLICATIONS CENTRE, UTTAR PRADESH </u></b> -->
+    </div>
+    <!-- <div id="heading">
+        <marquee>
+            <h4> Welcome to Renukoot </h4>
+        </marquee>
+    </div>  -->
+
+    </div>
+    <!-- <button class="openbtn" onclick="openNav()">☰Open Sidebar </button> -->
+
+    <div id="mySidebar" class="Sidebar">
+        <!-- <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">X</a> 
+        <h2>
+            <center>Sidebar</center>
+        </h2>-->
+        <hr>
+        <div id="ghzpoint">
+            <!-- <a href="GNN_Dashboard.html"> <button class="btn_Revenue">Go To Home Page</button></a>
+            <hr> -->
+            <!-- <button class="btn_Revenue">Revenue Mapping</a></button> -->
+
+            <button id="btn1">
+                <h5>Renukoot Baselayer</h5>
+            </button>
+            <hr>
+            <a href="Masterplan.html"> <button id="btn1">
+                    <h5>Renukoot Masterplan</h5>
+                </button></a>
+        </div>
+    </div>
+
+
+
+    <div id="main">
+        <div style="position:fixed;   margin-left: 12%;height:87%; width:85%; border-radius: 10px;"
+            id="map"></div>
+    </div>
+    <script src="./js_lib/L.Control.HtmlLegend.js"></script>
+    <script src="./js_lib/leaflet.groupedlayercontrol.js"></script>
+    <script src="./js_lib/leaflet-geojson-vt.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/leaflet.vectorgrid@1.2.0"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="./Js_json/Bridge_Flyover_Line_10.js"></script>
+    <script src="./Js_json/Buiilding_Footprint_11.js"></script>
+    <script src="./Js_json/Communication_Points_12.js"></script>
+    <script src="./Js_json/LandUse_&_Landcover.js"></script>
+    <script src="./Js_json/Plot_Layout_1.js"></script>
+    <script src="./Js_json/Power_Supply_Line_2.js"></script>
+    <script src="./Js_json/Power_Supply_Points_3.js"></script>
+    <script src="./Js_json/Railway_Line_4.js"></script>
+    <script src="./Js_json/Renukoot_Lulc.js"></script>
+    <script src="./Js_json/Renukoot_Rail_Line.js"></script>
+    <script src="./Js_json/Road_CLine_5.js"></script>
+    <script src="./Js_json/Road_Poly_6.js"></script>
+    <script src="./Js_json/Urban_Landuse_Points_7.js"></script>
+    <script src="./Js_json/Water_Bodies_Poly_8.js"></script>
+    <script src="./Js_json/Water_Supply_Points_9.js"></script>
+
+
+
+
+    <script>
+        var map = L.map('map', {
+            zoom: 14,
+            maxZoom: 24,
+            zoomOffset: -1,
+            center: L.latLng([24.218909993735, 83.039914743918]),
+            collapsed: true,
+            attributionControl: true
+        });
+        var GoogleSat = new L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            maxZoom: 24,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        }).addTo(map);;
+
+
+        var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+            '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+            'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            mbUrl =
+            'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+        var satelite = L.tileLayer(mbUrl, {
+            id: 'mapbox/satellite-v9',
+            tileSize: 512,
+            zoomOffset: -1,
+            attribution: mbAttr
+        });
+
+
+        var info_map = L.control();
+        info_map.onAdd = function (map) {
+            this._div = L.DomUtil.create('div', 'info_map'); // create a div with a class "info"
+            this.update();
+            return this._div;
+        };
+
+        // method that we will use to update the control based on feature properties passed
+        info_map.update = function (props) {
+            this._div.innerHTML =
+                '<h5 style=color:darkred;><b><center>Shaktinagar Information</center></b></h5><hr>' +
+                (
+                    props ?
+                    '<b style=color:darkred><br>Code -' + props.Code +
+                    '</b><br><br><b style=color:purpul>Gata No. -' + props.Sub_Class :
+
+
+                    '</b>Hover over a Renukoot');
+        };
+
+        // info_map.addTo(map);
+
+
+        function highlightFeature(e) {
+            var layer = e.target;
+
+            layer.setStyle({
+                weight: 5,
+                color: 'white',
+                dashArray: '',
+                fillOpacity: 1.
+            });
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                layer.bringToFront();
+            }
+            info_map.update(layer.feature.properties);
+        }
+        var Bridge_Flyover_Line_data;
+
+        function resetHighlight(e) {
+            Bridge_Flyover_Line_data.resetStyle(e.target);
+            info_map.update();
+        }
+
+        function style1(feature) {
+            return {
+                weight: 4,
+                // fillColor: 'transparent',
+                color: 'darkred',
+
+
+                // fillColor: getColor(feature.properties.Gaata_No)
+            };
+        }
+
+        var Bridge_Flyover_Line_data = L.geoJson(Bridge_Flyover_Line, {
+            style: style1,
+            onEachFeature: function (feature, layer) {
+                layer.on({
+                    mouseover: highlightFeature,
+                    mouseout: resetHighlight,
+
+                }).bindPopup(
+                    "<table class=table ><tr><td><b> Code-</b></td><td>" + feature.properties
+                    .Code +
+                    " <tr><td><b> Sub Class-</b></td><td>" + feature.properties.Sub_Class +
+                    "  </td></tr></table>"
+                )
+            }
+        });
+        Bridge_Flyover_Line_data.beforeAdd = function (map) {
+            legend.remove(map);
+        }
+        function highlightFeature_p(e) {
+            var layer = e.target;
+
+            layer.setStyle({
+                weight: 5,
+                color: 'white',
+                dashArray: '',
+                fillOpacity: 1.
+            });
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                layer.bringToFront();
+            }
+            info_map.update(layer.feature.properties);
+        }
+        var Plot_Layout_data;
+
+        function resetHighlight_p(e) {
+            Plot_Layout_data.resetStyle(e.target);
+            info_map.update();
+        }
+
+        function style2(feature) {
+            return {
+                weight: 2,
+                // fillColor: 'transparent',
+                color: 'orange',
+                // fillColor: getColor(feature.properties.Gaata_No)
+            };
+        }
+
+        var Plot_Layout_data = L.geoJson(Plot_Layout, {
+            style: style2,
+            onEachFeature: function (feature, layer) {
+                layer.on({
+                    mouseover: highlightFeature_p,
+                    mouseout: resetHighlight_p,
+
+                }).bindPopup(
+                    "<table class=table ><tr><td><b> Class-</b></td><td>" + feature.properties
+                    .Class +
+                    " <tr><td><b> Sub Class-</b></td><td>" + feature.properties.Sub_Class +
+                    "  </td></tr></table>"
+                )
+            }
+        });
+        Plot_Layout_data .beforeAdd = function (map) {
+            legend.remove(map);
+        }
+        function highlightFeature_wat(e) {
+            var layer = e.target;
+
+            layer.setStyle({
+                weight: 5,
+                color: 'white',
+                dashArray: '',
+                fillOpacity: 1.
+            });
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                layer.bringToFront();
+            }
+            info_map.update(layer.feature.properties);
+        }
+        var Water_Bodies_Poly_data;
+
+        function resetHighlight_wat(e) {
+            Water_Bodies_Poly_data.resetStyle(e.target);
+            info_map.update();
+        }
+
+        function style3(feature) {
+            return {
+                weight: 2,
+                // fillColor: 'transparent',
+                color: 'blue',
+                // fillColor: getColor(feature.properties.Gaata_No)
+            };
+        }
+
+        var Water_Bodies_Poly_data = L.geoJson(Water_Bodies_Poly, {
+            style: style3,
+            onEachFeature: function (feature, layer) {
+                layer.on({
+                    mouseover: highlightFeature_wat,
+                    mouseout: resetHighlight_wat,
+
+                }).bindPopup(
+                    "<table class=table ><tr><td><b> Class-</b></td><td>" + feature.properties
+                    .Class +
+                    " <tr><td><b> Sub Class-</b></td><td>" + feature.properties.Sub_Class +
+                    "  </td></tr></table>"
+                )
+            }
+        });
+        Water_Bodies_Poly_data .beforeAdd = function (map) {
+            legend.remove(map);
+        }
+        function highlightFeature_land(e) {
+            var layer = e.target;
+
+            layer.setStyle({
+                weight: 3,
+                color: 'black',
+                dashArray: '',
+                fillOpacity: 1.
+            });
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                layer.bringToFront();
+            }
+            info_map.update(layer.feature.properties);
+        }
+        var Landuse_and_Landcover_data;
+
+        function resetHighlight_land(e) {
+            Landuse_and_Landcover_data.resetStyle(e.target);
+            info_map.update();
+        }
+
+
+        function getColor(pa) {
+            return pa >= 22 ? ' #6ad8f0' :
+                pa >= 21 ? '#4b036a' :
+                pa >= 20 ? '#197f7d' :
+                pa >= 19 ? '#fe009d' :
+                pa >= 18 ? ' #00378a' :
+                pa >= 17 ? ' #e8bdc8 ' :
+                pa >= 16 ? '  #000000' :
+                pa >= 15 ? '#edd9ba' :
+                pa >= 14 ? ' #c2a864' :
+                pa >= 13 ? '#f9b949' :
+                pa >= 12 ? '#24dfca  ' :
+                pa >= 11 ? '#dd34b6  ' :
+                pa >= 10 ? '#984ea3 ' :
+                pa >= 9 ? '#ce9b60' :
+                pa >= 8 ? '#f781bf' :
+                pa >= 7 ? ' #a8b5bd' :
+                pa >= 6 ? '#e41a1c' :
+                pa >= 5 ? ' #33dd69' :
+                pa >= 4 ? ' #92b5cf  ' :
+                pa >= 3 ? ' #ffff33' :
+                pa >= 2 ? '#ff7f00' :
+                pa >= 1 ? '#4daf4a' :
+                //   pa >= 0 ? '#FFEDA8 ' :
+
+                '#FFEDA0'
+        }
+
+        function style4(feature) {
+            return {
+                weight: 1,
+                // fillColor: 'transparent',
+                color: 'blue',
+                fillOpacity: 1,
+                fillColor: getColor(feature.properties.Id)
+            };
+        }
+
+        var Landuse_and_Landcover_data = L.geoJson(Landuse_and_Landcover, {
+            style: style4,
+            onEachFeature: function (feature, layer) {
+                layer.on({
+                    mouseover: highlightFeature_land,
+                    mouseout: resetHighlight_land,
+
+                }).bindPopup(
+                    "<table class=table ><tr><td><b> Class-</b></td><td>" + feature.properties
+                    .Class +
+                    " <tr><td><b> Sub Class-</b></td><td>" + feature.properties.Sub_Class +
+
+                    "  </td></tr></table>"
+                )
+            }
+        });
+
+        Landuse_and_Landcover_data .beforeAdd = function (map) {
+            legend.addTo(map);
+        }
+
+
+        var htmlLegend = L.control.htmllegend({
+            position: 'bottomleft',
+            legends: [{
+                name: 'LULC',
+                layer:  Landuse_and_Landcover_data,
+                elements: [{
+                    label: 'Polygons',
+                   html: '<div class="polygons"></div>'
+               }]
+              
+            }],
+            defaultOpacity: 0.8,
+            collapseSimple: true,
+            detectStretched: false,
+            visibleIcon: 'icon icon-eye',
+            hiddenIcon: 'icon icon-eye-slash',
+            updateOpacity: function (layer, opacity) {
+                layer.setStyle({ stroke: true, fill: true, fillOpacity: opacity })
+            }
+        })
+    
+        map.addControl(htmlLegend)
+
+        function highlightFeature_power(e) {
+            var layer = e.target;
+
+            layer.setStyle({
+                weight: 5,
+                color: 'white',
+                dashArray: '',
+                fillOpacity: 1.
+            });
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                layer.bringToFront();
+            }
+            info_map.update(layer.feature.properties);
+        }
+        var Power_Supply_Line_data;
+
+        function resetHighlight_power(e) {
+            Power_Supply_Line_data.resetStyle(e.target);
+            info_map.update();
+        }
+
+        function style5(feature) {
+            return {
+                weight: 2,
+                // fillColor: 'transparent',
+                color: 'cyan',
+                // fillColor: getColor(feature.properties.Gaata_No)
+            };
+        }
+
+        var Power_Supply_Line_data = L.geoJson(Power_Supply_Line, {
+            style: style5,
+            onEachFeature: function (feature, layer) {
+                layer.on({
+                    mouseover: highlightFeature_power,
+                    mouseout: resetHighlight_power,
+
+                }).bindPopup(
+                    "<table class=table ><tr><td><b> Class-</b></td><td>" + feature.properties
+                    .Class +
+                    " <tr><td><b> Sub Class-</b></td><td>" + feature.properties.Sub_Class +
+                    "  </td></tr></table>"
+                )
+            }
+        });
+        Power_Supply_Line_data .beforeAdd = function (map) {
+            legend.remove(map);
+        }
+        function highlightFeature_rail(e) {
+            var layer = e.target;
+
+            layer.setStyle({
+                weight: 5,
+                color: 'white',
+                dashArray: '',
+                fillOpacity: 1.
+            });
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                layer.bringToFront();
+            }
+            info_map.update(layer.feature.properties);
+        }
+        var Railway_Line_data;
+
+        function resetHighlight_rail(e) {
+            Railway_Line_data.resetStyle(e.target);
+            info_map.update();
+        }
+
+        function style6(feature) {
+            return {
+                weight: 5,
+                // fillColor: 'transparent',
+                dashArray: '7',
+                color: 'yellowgreen',
+                // fillColor: getColor(feature.properties.Gaata_No)
+            };
+        }
+
+        var Railway_Line_data = L.geoJson(Railway_Line, {
+            style: style6,
+            onEachFeature: function (feature, layer) {
+                layer.on({
+                    mouseover: highlightFeature_rail,
+                    mouseout: resetHighlight_rail,
+
+                }).bindPopup(
+                    "<table class=table ><tr><td><b> Class-</b></td><td>" + feature.properties
+                    .Class +
+                    " <tr><td><b> Sub Class-</b></td><td>" + feature.properties.Sub_Class +
+                    "  </td></tr></table>"
+                )
+            }
+        });
+        Railway_Line_data  .beforeAdd = function (map) {
+            legend.remove(map);
+        }
+        function highlightFeature_psupply(e) {
+            var layer = e.target;
+
+            layer.setStyle({
+                weight: 5,
+                color: 'white',
+                dashArray: '',
+                fillOpacity: 1.
+            });
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                layer.bringToFront();
+            }
+            info_map.update(layer.feature.properties);
+        }
+        var Power_Supply_Points_data;
+
+        function resetHighlight_psupply(e) {
+            Power_Supply_Points_data.resetStyle(e.target);
+            info_map.update();
+        }
+        const circleMarkeroption_psupply = {
+            radius: 8,
+            fillColor: "red",
+            color: 'white',
+            weight: 2,
+            opacity: 1,
+            fillOpacity: 1
+        }
+
+        var Power_Supply_Points_data = L.geoJson(Power_Supply_Points, {
+            pointToLayer: function (feature, latlng) {
+                return L.circleMarker(latlng, circleMarkeroption_psupply)
+            },
+            onEachFeature: function (feature, layer) {
+                layer.on({
+                    mouseover: highlightFeature_psupply,
+                    mouseout: resetHighlight_psupply,
+
+                }).bindPopup(
+                    "<table class=table ><tr><td><b> Class-</b></td><td>" + feature.properties
+                    .Class +
+                    " <tr><td><b> Sub Class-</b></td><td>" + feature.properties.Sub__Class +
+                    "  </td></tr></table>"
+                )
+            }
+        });
+        Power_Supply_Points_data .beforeAdd = function (map) {
+            legend.remove(map);
+        }
+        function highlightFeature_urban(e) {
+            var layer = e.target;
+
+            layer.setStyle({
+                weight: 5,
+                color: 'white',
+                dashArray: '',
+                fillOpacity: 1.
+            });
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                layer.bringToFront();
+            }
+            info_map.update(layer.feature.properties);
+        }
+        var Urban_Landuse_Points_data;
+
+        function resetHighlight_urban(e) {
+            Urban_Landuse_Points_data.resetStyle(e.target);
+            info_map.update();
+        }
+        const circleMarkeroption_urban = {
+            radius: 8,
+            fillColor: "yellow",
+            color: 'darkred',
+            weight: 2,
+            opacity: 1,
+            fillOpacity: 1
+        }
+
+        var Urban_Landuse_Points_data = L.geoJson(Urban_Landuse_Points, {
+            pointToLayer: function (feature, latlng) {
+                return L.circleMarker(latlng, circleMarkeroption_urban)
+            },
+            onEachFeature: function (feature, layer) {
+                layer.on({
+                    mouseover: highlightFeature_urban,
+                    mouseout: resetHighlight_urban,
+
+                }).bindPopup(
+                    "<table class=table ><tr><td><b> Code-</b></td><td>" + feature.properties
+                    .Code +
+                    " <tr><td><b> Sub Class-</b></td><td>" + feature.properties.Sub_Class +
+                    "  </td></tr></table>"
+                )
+            }
+        });
+        Urban_Landuse_Points_data .beforeAdd = function (map) {
+            legend.remove(map);
+        }
+        function highlightFeature_water(e) {
+            var layer = e.target;
+
+            layer.setStyle({
+                weight: 5,
+                color: 'white',
+                dashArray: '',
+                fillOpacity: 1.
+            });
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                layer.bringToFront();
+            }
+            info_map.update(layer.feature.properties);
+        }
+        var Water_Supply_Points_data;
+
+        function resetHighlight_water(e) {
+            Water_Supply_Points_data.resetStyle(e.target);
+            info_map.update();
+        }
+        const circleMarkeroption_water = {
+            radius: 8,
+            fillColor: "skyblue",
+            color: 'black',
+            weight: 2,
+            opacity: 1,
+            fillOpacity: 1
+        }
+
+        var Water_Supply_Points_data = L.geoJson(Water_Supply_Points, {
+            pointToLayer: function (feature, latlng) {
+                return L.circleMarker(latlng, circleMarkeroption_water)
+            },
+            onEachFeature: function (feature, layer) {
+                layer.on({
+                    mouseover: highlightFeature_water,
+                    mouseout: resetHighlight_water,
+
+                }).bindPopup(
+                    "<table class=table ><tr><td><b> Class-</b></td><td>" + feature.properties
+                    .Class +
+                    " <tr><td><b> Sub Class-</b></td><td>" + feature.properties.Sub_Class +
+                    "  </td></tr></table>"
+                )
+            }
+        });
+        Water_Supply_Points_data .beforeAdd = function (map) {
+            legend.remove(map);
+        }
+        function highlightFeature_com(e) {
+            var layer = e.target;
+
+            layer.setStyle({
+                weight: 5,
+                color: 'white',
+                dashArray: '',
+                fillOpacity: 1.
+            });
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                layer.bringToFront();
+            }
+            info_map.update(layer.feature.properties);
+        }
+        var Communication_Points_data;
+
+        function resetHighlight_com(e) {
+            Communication_Points_data.resetStyle(e.target);
+            info_map.update();
+        }
+        const circleMarkeroption_com = {
+            radius: 8,
+            fillColor: "green",
+            color: 'white',
+            weight: 2,
+            opacity: 1,
+            fillOpacity: 1
+        }
+
+        var Communication_Points_data = L.geoJson(Communication_Points, {
+            pointToLayer: function (feature, latlng) {
+                return L.circleMarker(latlng, circleMarkeroption_com)
+            },
+            onEachFeature: function (feature, layer) {
+                layer.on({
+                    mouseover: highlightFeature_com,
+                    mouseout: resetHighlight_com,
+
+                }).bindPopup(
+                    "<table class=table ><tr><td><b> Class-</b></td><td>" + feature.properties
+                    .Class +
+                    " <tr><td><b> Sub Class-</b></td><td>" + feature.properties.Sub_Class +
+                    "  </td></tr></table>"
+                )
+            }
+        });
+        Communication_Points_data .beforeAdd = function (map) {
+            legend.remove(map);
+        }
+        function style_foo(feature) {
+            return {
+                weight: 2,
+                // fillColor: 'transparent',
+                color: 'yellow',
+                // fillColor: getColor(feature.properties.Gaata_No)
+            };
+        }
+
+        var Buiilding_Footprint_data = L.geoJson(Buiilding_Footprint, {
+            style: style_foo,
+            onEachFeature: function (feature, layer) {
+                layer.on({
+                    // mouseover: highlightFeature_rail,
+                    //  mouseout: resetHighlight_rail,
+
+                })
+                //.bindPopup(
+                //  "<table class=table ><tr><td><b> Code-</b></td><td>" + feature.properties
+                //  .Code +
+                // " <tr><td><b> Sub Class-</b></td><td>" + feature.properties.Sub_Class +
+                //  "  </td></tr></table>"
+                // )
+            }
+        });
+        Buiilding_Footprint_data .beforeAdd = function (map) {
+            legend.remove(map);
+        }
+
+        function style(feature) {
+            return {
+                weight: 2,
+                // fillColor: 'transparent',
+                color: 'black',
+                // fillColor: getColor(feature.properties.Gaata_No)
+            };
+        }
+        var Road_Poly_data = L.geoJson(Road_Poly, {
+            style: style,
+            onEachFeature: function (feature, layer) {
+                layer.on({
+                    // mouseover: highlightFeature_rail,
+                    //  mouseout: resetHighlight_rail,
+
+                }).bindPopup(
+                    "<table class=table ><tr><td><b> Code-</b></td><td>" + feature.properties
+                    .Code +
+                    " <tr><td><b> Sub Class-</b></td><td>" + feature.properties.Sub_Class +
+                    "  </td></tr></table>"
+                )
+            }
+        });
+        Road_Poly_data .beforeAdd = function (map) {
+            legend.remove(map);
+        }
+        function highlightFeature_road_center(e) {
+            var layer = e.target;
+
+            layer.setStyle({
+                weight: 5,
+                color: 'white',
+                dashArray: '',
+                fillOpacity: 1.
+            });
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                layer.bringToFront();
+            }
+            info_map.update(layer.feature.properties);
+        }
+        var Road_CLine_data;
+
+        function resetHighlight_road_center(e) {
+            Road_CLine_data.resetStyle(e.target);
+            info_map.update();
+        }
+
+        function style_rcenter(feature) {
+            return {
+                weight: 2,
+                color: 'red',
+                // fillColor: getColor(feature.properties.Gaata_No)
+            };
+        }
+
+        var Road_CLine_data = L.geoJson(Road_CLine, {
+            style: style_rcenter,
+            onEachFeature: function (feature, layer) {
+                layer.on({
+                    mouseover: highlightFeature_road_center,
+                    mouseout: resetHighlight_road_center,
+
+                }).bindPopup(
+                    "<table class=table ><tr><td><b> Code-</b></td><td>" + feature.properties
+                    .Code +
+                    " <tr><td><b> Sub Class-</b></td><td>" + feature.properties.Sub_Class +
+                    " <tr><td><b> Road Name-</b></td><td>" + feature.properties.Rd_Name +
+                    " <tr><td><b> CW Width-</b></td><td>" + feature.properties.CW_Width +
+                    " <tr><td><b> ROW Width-</b></td><td>" + feature.properties.ROW_Width +
+                    "  </td></tr></table>"
+                )
+            }
+        });
+        Road_CLine_data .beforeAdd = function (map) {
+            legend.remove(map);
+        }
+      
+        /*  var logo = L.control({
+              position: 'topleft'
+          });
+          logo.onAdd = function (map) {
+              var div = L.DomUtil.create("div", "logo");
+              div.innerHTML +=
+                  '<img  style="width:25%; height:6%;margin-top:-3%; position:fixed; margin-left: 60px;" src="logo.jpg">';
+
+              return div;
+          };
+          logo.addTo(map);*/
+
+
+
+       var legend = L.control({
+            position: 'bottomright'
+        });
+        legend.onAdd = function (map) {
+            var div = L.DomUtil.create("div", "legend");
+            div.innerHTML += "<h3>Legend</h3><hr>";
+            div.innerHTML +=
+                '<i style="background: #4daf4a;border:1px solid white "></i><span><b>Agricultural Land</></span><br>';
+            div.innerHTML +=
+                '<i style="background: #ff7f00; border:1px solid white"></i><span><b>Central Govt. Property</b></span><br>';
+            div.innerHTML +=
+                '<i style="background: #ffff33;border:1px solid white "></i><span><b>Commercial</></span><br>';
+            div.innerHTML +=
+                '<i style="background: #92b5cf; border:1px solid white"></i><span><b>Educational</b></span><br>';
+              div.innerHTML +=
+                '<i style="background: #33dd69;border:1px solid white "></i><span><b>Green Area</></span><br>';
+            div.innerHTML +=
+                '<i style="background: #e41a1c; border:1px solid white"></i><span><b>Health Services</b></span><br>';
+    div.innerHTML +=
+                '<i style="background: #a8b5bd; border:1px solid white"></i><span><b>Industrial</b></span><br>';
+    div.innerHTML +=
+                '<i style="background: #f781bf; border:1px solid white"></i><span><b>Mixed</b></span><br>';
+    div.innerHTML +=
+                '<i style="background: #ce9b60; border:1px solid white"></i><span><b>Other</b></span><br>';
+    div.innerHTML +=
+                '<i style="background: #984ea3; border:1px solid white"></i><span><b>Public & Semi Public</b></span><br>';
+    div.innerHTML +=
+                '<i style="background: #dd34b6; border:1px solid white"></i><span><b>Public Utilities</b></span><br>';
+    div.innerHTML +=
+                '<i style="background: #24dfca; border:1px solid white"></i><span><b>Railway</b></span><br>';
+
+                div.innerHTML +=
+                '<i style="background: #f9b949; border:1px solid white"></i><span><b>Recreational</b></span><br>';
+    div.innerHTML +=
+                '<i style="background: #c2a864; border:1px solid white"></i><span><b>Religious</b></span><br>';
+    div.innerHTML +=
+                '<i style="background: #eddaba; border:1px solid white"></i><span><b>Residential</b></span><br>';
+    div.innerHTML +=
+                '<i style="background: #000000; border:1px solid white"></i><span><b>Road</b></span><br>';
+    div.innerHTML +=
+                '<i style="background: #e8bdc8; border:1px solid white"></i><span><b>Rural</b></span><br>';
+    div.innerHTML +=
+                '<i style="background: #00378a; border:1px solid white"></i><span><b>State Govt.Property</b></span><br>';
+
+                div.innerHTML +=
+                '<i style="background: #fe009d; border:1px solid white"></i><span><b>Traffic Related</b></span><br>';
+    div.innerHTML +=
+                '<i style="background: #197f7d; border:1px solid white"></i><span><b>Transportaion</b></span><br>';
+    div.innerHTML +=
+                '<i style="background: #4b036a; border:1px solid white"></i><span><b>Vacant Land</b></span><br>';
+    div.innerHTML +=
+                '<i style="background: #6ad8f0; border:1px solid white"></i><span><b>Water Bodies</b></span><br>';
+
+            return div;
+        };
+      //  legend.addTo(map);
+
+
+          var options = {
+              // enable basic collapsability
+              groupsCollapsable: true,
+              // (Optional) The css class(es) used to indicated the group is expanded
+              groupsExpandedClass: "checkbox",
+              // (Optional) The css class(es) used to indicated the group is collapsed
+              //   groupsCollapsedClass: "glyphicon glyphicon-chevron-right",
+              position: 'topleft',
+              collapsed: true,
+              exclusiveGroups: ["Landuse and Landcover"],
+              // Show a checkbox next to non-exclusive group labels for toggling all
+              groupCheckboxes: true
+          };
+
+        var baseLayers = {
+            'Satelite': satelite,
+            'GoogleSat': GoogleSat,
+        };
+        var overlays = {
+             "<u><b style=color:blue>Landuse and Landcover-</b></u>": {
+                'Landuse and Landcover': Landuse_and_Landcover_data,
+            },
+            "<u><b style=color:blue>Road System-</b></u>": {
+                ' Road ': Road_Poly_data,
+                'Road Center Line': Road_CLine_data,
+             
+            },
+            "<u><b style=color:blue>Power Supply-</b></u>": {
+                'Power Supply Line ': Power_Supply_Line_data,
+                'Power Supply ': Power_Supply_Points_data,
+            },
+            "<u><b style=color:blue>Water Supply-</b></u>": {
+                ' Water Supply ': Water_Supply_Points_data,
+                'Water Bodies ': Water_Bodies_Poly_data,
+                ' Bridge Flyover  ': Bridge_Flyover_Line_data,
+            },
+            "<u><b style=color:blue>Public Utilities-</b></u>": {
+                ' Buiilding Footprint': Buiilding_Footprint_data,
+            },
+                "<u><b style=color:blue>Public Utilities-</b></u>": {
+            'Plot Layout': Plot_Layout_data,          
+            ' Railway  ': Railway_Line_data,
+            'ATM ': Urban_Landuse_Points_data,
+            ' Communication ': Communication_Points_data,
+                },         
+          
+        }
+        L.control.groupedLayers(baseLayers, overlays, options
+          //  position: 'topleft',
+           // collapsed: true,
+        ).addTo(map);
+    </script>
